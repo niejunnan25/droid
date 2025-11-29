@@ -1,0 +1,10 @@
+*.DS_Store
+
+results/
+rollout/
+collected_rollouts/
+episode_logs/
+record/
+
+__pycache__/
+
