@@ -96,6 +96,8 @@ class RoboBrain:
 
 You are controlling a robotic arm that needs to complete the following user prompt:{user_prompt}
 
+**CONTEXT/KNOWLEDGE BASE CONSTRAINT:** **Only** the following six types of vegetables **can possibly exist** on the table: red pepper, green pepper, garlic, corn, cabbage, and potato. Your planning must be strictly limited to these six objects.
+
 I will show you a image.Your task is to identify the relevant objects using your knowledge base	and analyze a complex robotic arm manipulation task and systematically break it down into a series of clear, executable sub-tasks.
 
 Each item in the list must be a clear, natural language action instruction that describes a complete pick-and-place cycle for one object.
@@ -110,6 +112,9 @@ You should refer to the following format for the output:
 - Pick up the potato and place it on the plate.
 - Pick up the cabbage and place it on the plate.
 - Pick up the corn and place it on the plate.
+- Pick up the garlic and place it on the plate.
+- Pick up the green pepper and place it on the plate.
+- Pick up the red pepper and place it on the plate.
 
 Example2:
 User prompt: Put all the peppers on the table into the plate.

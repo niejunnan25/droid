@@ -339,14 +339,19 @@ def extract_boolean_answer(text: str) -> bool | None:
 
 
 def process_image(img, crop_ratios=None):
-    """(User-provided) Processes raw image: BGR -> RGB and optional crop."""
+    """处理相机图像：BGR->RGB，可选左右裁剪；避免频繁 PIL 转换。"""
     if img is None:
         return None
-    img = img[..., :3][..., ::-1]  # Assume BGR, convert to RGB
-    pil_img = Image.fromarray(img)
+    # 去 alpha 通道 & BGR->RGB
+    rgb = img[..., :3][..., ::-1]
     if crop_ratios:
-        pil_img = crop_left_right(pil_img, *crop_ratios)
-    return np.array(pil_img)
+        left_ratio, right_ratio = crop_ratios
+        h, w = rgb.shape[:2]
+        left = int(w * left_ratio)
+        right = int(w * right_ratio)
+        right_bound = max(left, w - right)
+        rgb = rgb[:, left:right_bound]
+    return rgb
 
 
 def crop_left_right(image: Image.Image, left_ratio: float, right_ratio: float) -> Image.Image:
